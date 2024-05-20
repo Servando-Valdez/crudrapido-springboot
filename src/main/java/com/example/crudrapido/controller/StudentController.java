@@ -24,7 +24,7 @@ public class StudentController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Student> getOneById(@PathVariable("id") Long id){
+    public Student getOneById(@PathVariable("id") Long id){
         return studentService.getStudent(id);
     }
 
@@ -41,6 +41,6 @@ public class StudentController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable("id") Long id, @Valid @RequestBody Student student){
-        studentService.saveOrUpdate(student);
+        studentService.update(student, id);
     }
 }
