@@ -1,6 +1,8 @@
 package com.example.crudrapido.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -12,10 +14,13 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long studentId;
 
+    @NotNull(message = "Email is mandatory")
     private String firstName;
-
+    @NotNull(message = "LastName is mandatory")
     private String lastName;
 
+    @Email(message = "This must be a valid email")
+    @NotNull(message = "Email is mandatory")
     @Column(unique = true, nullable = false)
     private String email;
 

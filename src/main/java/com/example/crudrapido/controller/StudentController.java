@@ -2,7 +2,9 @@ package com.example.crudrapido.controller;
 
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +23,14 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public Optional<Student> getOneById(@PathVariable("id") Long id){
         return studentService.getStudent(id);
     }
 
     @PostMapping
-    public void save(@RequestBody Student student){
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(@Valid @RequestBody Student student){
         studentService.saveOrUpdate(student);
     }
 
@@ -36,7 +40,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody Student student){
+    public void update(@PathVariable("id") Long id, @Valid @RequestBody Student student){
         studentService.saveOrUpdate(student);
     }
 }
