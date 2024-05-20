@@ -18,6 +18,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Student> getAll(){
         return studentService.getStudents();
     }
@@ -35,11 +36,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id){
         studentService.delete(id);
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("id") Long id, @Valid @RequestBody Student student){
         studentService.update(student, id);
     }
