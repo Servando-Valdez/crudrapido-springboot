@@ -20,8 +20,9 @@ public class StudentController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Student> getAll(){
-        return studentService.getStudents();
+    public List<StudentDTO> getAll(){
+        List<StudentDTO> students = studentService.getStudents();
+        return students;
     }
 
     @GetMapping("/{id}")

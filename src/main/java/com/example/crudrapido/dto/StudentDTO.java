@@ -17,4 +17,23 @@ public class StudentDTO {
     private String email;
 
     private Long teacher;
+
+    public StudentDTO(long studentId, String firstName, String lastName, String email, Long teacher) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.teacher = teacher;
+    }
+
+    public StudentDTO(String firstName, String lastName, String email, Long teacher) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.teacher = teacher;
+    }
+
+    public StudentDTO(){}
+
+
 }

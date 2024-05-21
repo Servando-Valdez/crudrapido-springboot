@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -20,8 +21,22 @@ public class StudentService {
     @Autowired
     TeacherService teacherService;
 
-    public List<Student> getStudents(){
-        return studentRepository.findAll();
+    public List<StudentDTO> getStudents(){
+        List<Student> students = studentRepository.findAll();
+        return students.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private StudentDTO convertToDto(Student student) {
+        StudentDTO dto = new StudentDTO(
+                student.getStudentId(),
+                student.getFirstName(),
+                student.getLastName(),
+                student.getEmail(),
+                student.getTeacher().getTeacherId()
+        );
+        return dto;
     }
 
     public Student getStudent(Long id) {
