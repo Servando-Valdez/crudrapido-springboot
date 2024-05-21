@@ -15,6 +15,9 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    TeacherService teacherService;
+
     public List<Student> getStudents(){
         return studentRepository.findAll();
     }
@@ -26,6 +29,8 @@ public class StudentService {
 
 //    create and update in a method
     public void saveOrUpdate(Student student){
+        System.out.println(student.getTeacher().getTeacherId());
+        this.teacherService.getTeacherById(student.getTeacher().getTeacherId());
         studentRepository.save(student);
     }
 
