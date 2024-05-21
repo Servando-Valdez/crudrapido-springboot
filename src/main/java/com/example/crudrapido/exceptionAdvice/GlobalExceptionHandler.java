@@ -26,9 +26,9 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler(StudentNotFoundException.class)
+    @ExceptionHandler(IdNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleStudentNotFoundException(StudentNotFoundException ex) {
+    public ResponseEntity<String> handleIdNotFound(IdNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

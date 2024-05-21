@@ -1,7 +1,7 @@
 package com.example.crudrapido.service;
 
 import com.example.crudrapido.entity.Student;
-import com.example.crudrapido.exceptionAdvice.StudentNotFoundException;
+import com.example.crudrapido.exceptionAdvice.IdNotFoundException;
 import com.example.crudrapido.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +20,8 @@ public class StudentService {
     }
 
     public Student getStudent(Long id) {
-//        try {
-//            return studentRepository.findById(id);
-//        } catch (StudentNotFoundException studentNotFoundException) {
-//            new StudentNotFoundException("Student not found");
-//        } finally {
-//            System.out.println("Error");
-//        }
-//
-//        return null;
         return studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));
+                .orElseThrow(() -> new IdNotFoundException("Student not found with id: " + id));
     }
 
 //    create and update in a method
@@ -55,6 +46,6 @@ public class StudentService {
     public void delete(Long id){
         Student student = this.getStudent(id);
 
-        studentRepository.deleteById(id);
+        studentRepository.delete(student);
     }
 }
