@@ -1,5 +1,6 @@
 package com.example.crudrapido.controller;
 
+import com.example.crudrapido.dto.StudentDTO;
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.service.StudentService;
 import jakarta.validation.Valid;
@@ -31,8 +32,8 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@Valid @RequestBody Student student){
-        studentService.saveOrUpdate(student);
+    public void save(@Valid @RequestBody StudentDTO studentDTO){
+        studentService.saveOrUpdate(studentDTO);
     }
 
     @DeleteMapping("/{id}")

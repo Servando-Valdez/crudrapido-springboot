@@ -1,6 +1,8 @@
 package com.example.crudrapido.service;
 
+import com.example.crudrapido.dto.StudentDTO;
 import com.example.crudrapido.entity.Student;
+import com.example.crudrapido.entity.Teacher;
 import com.example.crudrapido.exceptionAdvice.IdNotFoundException;
 import com.example.crudrapido.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,14 @@ public class StudentService {
     }
 
 //    create and update in a method
-    public void saveOrUpdate(Student student){
-        System.out.println(student.getTeacher().getTeacherId());
-        this.teacherService.getTeacherById(student.getTeacher().getTeacherId());
+    public void saveOrUpdate(StudentDTO studentDTO){
+        Student student = new Student();
+        student.setFirstName(studentDTO.getFirstName());
+        student.setLastName(studentDTO.getLastName());
+        student.setEmail(studentDTO.getEmail());
+        Teacher teacher = this.teacherService.getTeacherById(studentDTO.getTeacher());
+        student.setTeacher(teacher);
+
         studentRepository.save(student);
     }
 
