@@ -8,20 +8,20 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "teacher")
-public class Teacher {
+public class Teacher extends Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
     private long teacherId;
 
-    @NotNull
-    private String firstName;
-
-    @NotNull
-    private String lastName;
-
-    @Email
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String email;
+//    @NotNull
+//    private String firstName;
+//
+//    @NotNull
+//    private String lastName;
+//
+//    @Email
+//    @NotNull
+//    @Column(nullable = false, unique = true)
+//    private String email;
 }
