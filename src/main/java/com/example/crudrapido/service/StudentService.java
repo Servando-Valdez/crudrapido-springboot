@@ -3,6 +3,7 @@ package com.example.crudrapido.service;
 import com.example.crudrapido.dto.StudentDTO;
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.entity.Teacher;
+import com.example.crudrapido.exceptionAdvice.DuplicateEmailException;
 import com.example.crudrapido.exceptionAdvice.IdNotFoundException;
 import com.example.crudrapido.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,16 @@ public class StudentService {
 
 //    create and update in a method
     public void saveOrUpdate(StudentDTO studentDTO){
+        //validate email
+        String email = studentDTO.getEmail();
+        if(this.studentRepository.existsByEmail(email)){
+            throw new DuplicateEmailException("email already exists");
+
+        }
         Student student = new Student();
         student.setFirstName(studentDTO.getFirstName());
         student.setLastName(studentDTO.getLastName());
-        student.setEmail(studentDTO.getEmail());
+        student.setEmail(email);
         Teacher teacher = this.teacherService.getTeacherById(studentDTO.getTeacher());
         student.setTeacher(teacher);
 
