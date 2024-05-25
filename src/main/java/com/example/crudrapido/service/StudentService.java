@@ -1,6 +1,7 @@
 package com.example.crudrapido.service;
 
 import com.example.crudrapido.dto.StudentDTO;
+import com.example.crudrapido.dto.TeacherDTO;
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.entity.Teacher;
 import com.example.crudrapido.exceptionAdvice.DuplicateEmailException;
@@ -57,8 +58,13 @@ public class StudentService {
         student.setFirstName(studentDTO.getFirstName());
         student.setLastName(studentDTO.getLastName());
         student.setEmail(email);
-        Teacher teacher = this.teacherService.getTeacherById(studentDTO.getTeacher());
-        student.setTeacher(teacher);
+        TeacherDTO teacher = this.teacherService.getTeacherById(studentDTO.getTeacher());
+        student.setTeacher(new Teacher(
+                teacher.getTeacherId(),
+                teacher.getFirstName(),
+                teacher.getLastName(),
+                teacher.getEmail()
+        ));
 
         studentRepository.save(student);
     }

@@ -36,17 +36,29 @@ public class TeacherService {
         return dto;
     }
 
-    public Teacher getTeacherById(Long id){
-        return this.teacherRepository.findById(id)
-                .orElseThrow(()-> new IdNotFoundException("Student not found with id: " + "id"));
+    private Teacher convertToEntity(TeacherDTO teacher){
+        Teacher entity = new Teacher(
+                teacher.getTeacherId(),
+                teacher.getFirstName(),
+                teacher.getLastName(),
+                teacher.getEmail()
+        );
+        return entity;
     }
 
-    public Teacher createTeacher(Teacher teacher){
-        return this.teacherRepository.save(teacher);
+    public TeacherDTO getTeacherById(Long id){
+        Teacher teacher =  this.teacherRepository.findById(id)
+                .orElseThrow(()-> new IdNotFoundException("Student not found with id: " + "id"));
+        return this.convertToDto(teacher);
+    }
+
+    public TeacherDTO createTeacher(TeacherDTO teacher){
+        Teacher teacherEntity = this.teacherRepository.save(this.convertToEntity(teacher));
+        return this.convertToDto(teacherEntity);
     }
 
     public Teacher updateTeacher(Long id, Teacher teacher){
-        Teacher currrentTeacher = this.getTeacherById(id);
+        TeacherDTO currrentTeacher = this.getTeacherById(id);
 
         currrentTeacher.setEmail(teacher.getEmail());
         currrentTeacher.setFirstName(teacher.getFirstName());
@@ -56,8 +68,8 @@ public class TeacherService {
     }
 
     public void deleteTeacher(Long id){
-        Teacher teacher = this.getTeacherById(id);
+        TeacherDTO teacher = this.getTeacherById(id);
 
-        this.teacherRepository.delete(teacher);
+        this.teacherRepository.deleteById(teacher.getTeacherId());
     }
 }

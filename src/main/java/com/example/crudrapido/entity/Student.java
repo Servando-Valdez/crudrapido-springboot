@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
@@ -16,6 +19,23 @@ public class Student extends Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
     private long studentId;
+
+    public Student(long studentId, String firstName, String lastName, String email, Teacher teacher) {
+        super(firstName, lastName, email);
+        this.studentId = studentId;
+        this.teacher = teacher;
+    }
+
+    public Student(String firstName, String lastName, String email, long studentId, Teacher teacher) {
+        super(firstName, lastName, email);
+        this.studentId = studentId;
+        this.teacher = teacher;
+    }
+
+    public Student(){
+        super();
+    }
+
 
 //    @NotNull(message = "Email is mandatory")
 //    private String firstName;
@@ -30,4 +50,5 @@ public class Student extends Person{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="teacher_id", nullable = false)
     private Teacher teacher;
+
 }

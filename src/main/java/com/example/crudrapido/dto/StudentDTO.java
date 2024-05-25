@@ -11,7 +11,7 @@ public class StudentDTO {
 
     private long studentId;
 
-    @NotNull(message = "Email is mandatory")
+    @NotNull(message = "FirstName is mandatory")
     private String firstName;
 
     @NotNull(message = "LastName is mandatory")

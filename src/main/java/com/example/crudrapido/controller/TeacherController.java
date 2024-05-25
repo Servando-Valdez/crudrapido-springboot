@@ -36,13 +36,13 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Teacher GetById(@PathVariable("id") Long id){
+    public TeacherDTO GetById(@PathVariable("id") Long id){
         return this.teacherService.getTeacherById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Teacher create(@Valid @RequestBody Teacher teacher){
+    public TeacherDTO create(@Valid @RequestBody TeacherDTO teacher){
         return this.teacherService.createTeacher(teacher);
     }
 

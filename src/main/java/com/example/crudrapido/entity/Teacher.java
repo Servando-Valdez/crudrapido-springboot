@@ -3,8 +3,13 @@ package com.example.crudrapido.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+//@Data
+//@Builder(toBuilder = true)
 @Data
 @Entity
 @Table(name = "teacher")
@@ -14,7 +19,21 @@ public class Teacher extends Person{
     @Column(name = "teacher_id")
     private long teacherId;
 
-//    @NotNull
+    public Teacher(long teacherId, String firstName, String LastName, String email){
+        super(firstName, LastName, email);
+        this.teacherId = teacherId;
+    }
+
+    public Teacher(String firstName, String LastName, String email){
+        super(firstName, LastName, email);
+    }
+
+    public Teacher(){
+        super();
+    }
+
+
+    //    @NotNull
 //    private String firstName;
 //
 //    @NotNull
