@@ -48,7 +48,7 @@ public class TeacherService {
 
     public TeacherDTO getTeacherById(Long id){
         Teacher teacher =  this.teacherRepository.findById(id)
-                .orElseThrow(()-> new IdNotFoundException("Student not found with id: " + "id"));
+                .orElseThrow(()-> new IdNotFoundException("Teacher not found with id: " + "id"));
         return this.convertToDto(teacher);
     }
 
@@ -57,17 +57,18 @@ public class TeacherService {
         return this.convertToDto(teacherEntity);
     }
 
-    public Teacher updateTeacher(Long id, Teacher teacher){
+    public TeacherDTO updateTeacher(Long id, TeacherDTO teacher){
         TeacherDTO currrentTeacher = this.getTeacherById(id);
 
         currrentTeacher.setEmail(teacher.getEmail());
         currrentTeacher.setFirstName(teacher.getFirstName());
         currrentTeacher.setLastName(teacher.getLastName());
 
-        return this.teacherRepository.save(teacher);
+        return this.convertToDto(this.teacherRepository.save(convertToEntity(currrentTeacher)));
     }
 
     public void deleteTeacher(Long id){
+
         TeacherDTO teacher = this.getTeacherById(id);
 
         this.teacherRepository.deleteById(teacher.getTeacherId());

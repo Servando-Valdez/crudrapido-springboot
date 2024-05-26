@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 @Data
 @Entity
@@ -47,8 +48,8 @@ public class Student extends Person{
 //    @Column(unique = true, nullable = false)
 //    private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="teacher_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name="teacher_id", nullable = true)
     private Teacher teacher;
 
 }

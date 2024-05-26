@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //@Data
 //@Builder(toBuilder = true)
 @Data
@@ -18,6 +21,9 @@ public class Teacher extends Person{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
     private long teacherId;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Student> students = new ArrayList<>();
 
     public Teacher(long teacherId, String firstName, String LastName, String email){
         super(firstName, LastName, email);

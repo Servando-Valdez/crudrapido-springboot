@@ -46,6 +46,11 @@ public class TeacherController {
         return this.teacherService.createTeacher(teacher);
     }
 
+    @PutMapping("/{id}")
+    public TeacherDTO update(@PathVariable("id") Long id,@Valid @RequestBody TeacherDTO teacher){
+        return this.teacherService.updateTeacher(id, teacher);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id){
