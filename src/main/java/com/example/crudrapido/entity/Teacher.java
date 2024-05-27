@@ -1,12 +1,7 @@
 package com.example.crudrapido.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +33,10 @@ public class Teacher extends Person{
         super();
     }
 
+    @Override
+    public String toString(){
+        return String.valueOf(this.getTeacherId())+ "" + this.getFirstName() + this.getStudents();
+    }
 
     //    @NotNull
 //    private String firstName;

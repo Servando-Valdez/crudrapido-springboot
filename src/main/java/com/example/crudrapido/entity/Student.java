@@ -27,10 +27,20 @@ public class Student extends Person{
         this.teacher = teacher;
     }
 
+    public Student(long studentId, String firstName, String lastName, String email) {
+        super(firstName, lastName, email);
+        this.studentId = studentId;
+    }
+
     public Student(String firstName, String lastName, String email, long studentId, Teacher teacher) {
         super(firstName, lastName, email);
         this.studentId = studentId;
         this.teacher = teacher;
+    }
+
+    public Student(String firstName, String lastName, String email, long studentId) {
+        super(firstName, lastName, email);
+        this.studentId = studentId;
     }
 
     public Student(){
@@ -48,8 +58,12 @@ public class Student extends Person{
 //    @Column(unique = true, nullable = false)
 //    private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="teacher_id", nullable = true)
     private Teacher teacher;
 
+    @Override
+    public String toString(){
+        return String.valueOf(this.getStudentId())+ "" + this.getFirstName();
+    }
 }

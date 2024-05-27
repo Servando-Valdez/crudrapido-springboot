@@ -31,6 +31,7 @@ public class StudentService {
     }
 
     private StudentDTO convertToDto(Student student) {
+        System.out.println(student);
         StudentDTO dto = new StudentDTO(
                 student.getStudentId(),
                 student.getFirstName(),
@@ -38,6 +39,7 @@ public class StudentService {
                 student.getEmail(),
                 student.getTeacher().getTeacherId()
         );
+
         return dto;
     }
 

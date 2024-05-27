@@ -2,9 +2,11 @@ package com.example.crudrapido.service;
 
 import com.example.crudrapido.dto.StudentDTO;
 import com.example.crudrapido.dto.TeacherDTO;
+import com.example.crudrapido.dto.TeacherResDTO;
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.entity.Teacher;
 import com.example.crudrapido.exceptionAdvice.IdNotFoundException;
+import com.example.crudrapido.mappers.TeacherMapper;
 import com.example.crudrapido.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,43 +20,58 @@ public class TeacherService {
     @Autowired
     TeacherRepository teacherRepository;
 
-    public List<TeacherDTO> getAllTeachers(){
+    @Autowired
+    TeacherMapper teacherMapper;
+
+    public List<TeacherResDTO> getAllTeachers(){
 //        return this.teacherRepository.findAll();
         List<Teacher> teachers = this.teacherRepository.findAll();
         return teachers.stream()
-                .map(this::convertToDto)
+                .map(teacherMapper::toDTO2)
                 .collect(Collectors.toList());
     }
 
-    private TeacherDTO convertToDto(Teacher teacher) {
-        TeacherDTO dto = new TeacherDTO(
-                teacher.getTeacherId(),
-                teacher.getFirstName(),
-                teacher.getLastName(),
-                teacher.getEmail()
-        );
-        return dto;
-    }
+//    private TeacherDTO convertToDto(Teacher teacher) {
+//        System.out.println(teacher);
+//        TeacherDTO dto = new TeacherDTO(
+//                teacher.getTeacherId(),
+//                teacher.getFirstName(),
+//                teacher.getLastName(),
+//                teacher.getEmail()
+//        );
+//        return dto;
+//    }
 
-    private Teacher convertToEntity(TeacherDTO teacher){
-        Teacher entity = new Teacher(
-                teacher.getTeacherId(),
-                teacher.getFirstName(),
-                teacher.getLastName(),
-                teacher.getEmail()
-        );
-        return entity;
-    }
+//    private TeacherResDTO convertToDtoResponse(Teacher teacher){
+//        TeacherResDTO dto = new TeacherResDTO(
+//                teacher.getTeacherId(),
+//                teacher.getFirstName(),
+//                teacher.getLastName(),
+//                teacher.getEmail(),
+//                teacher.getStudents()
+//        );
+//        return dto;
+//    }
+
+//    private Teacher convertToEntity(TeacherDTO teacher){
+//        Teacher entity = new Teacher(
+//                teacher.getTeacherId(),
+//                teacher.getFirstName(),
+//                teacher.getLastName(),
+//                teacher.getEmail()
+//        );
+//        return entity;
+//    }
 
     public TeacherDTO getTeacherById(Long id){
         Teacher teacher =  this.teacherRepository.findById(id)
                 .orElseThrow(()-> new IdNotFoundException("Teacher not found with id: " + "id"));
-        return this.convertToDto(teacher);
+        return this.teacherMapper.toDTO(teacher);
     }
 
     public TeacherDTO createTeacher(TeacherDTO teacher){
-        Teacher teacherEntity = this.teacherRepository.save(this.convertToEntity(teacher));
-        return this.convertToDto(teacherEntity);
+        Teacher teacherEntity = this.teacherRepository.save(this.teacherMapper.toEntity(teacher));
+        return this.teacherMapper.toDTO(teacherEntity);
     }
 
     public TeacherDTO updateTeacher(Long id, TeacherDTO teacher){
@@ -64,7 +81,7 @@ public class TeacherService {
         currrentTeacher.setFirstName(teacher.getFirstName());
         currrentTeacher.setLastName(teacher.getLastName());
 
-        return this.convertToDto(this.teacherRepository.save(convertToEntity(currrentTeacher)));
+        return this.teacherMapper.toDTO(this.teacherRepository.save(this.teacherMapper.toEntity(currrentTeacher)));
     }
 
     public void deleteTeacher(Long id){

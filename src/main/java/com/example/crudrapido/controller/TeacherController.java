@@ -1,6 +1,7 @@
 package com.example.crudrapido.controller;
 
 import com.example.crudrapido.dto.TeacherDTO;
+import com.example.crudrapido.dto.TeacherResDTO;
 import com.example.crudrapido.entity.Teacher;
 import com.example.crudrapido.service.TeacherService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class TeacherController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TeacherDTO> getAll(){
+    public List<TeacherResDTO> getAll(){
 //        List<Teacher> listTeacher = new ArrayList<>();
 //
 //        Teacher teacher = new Teacher();
