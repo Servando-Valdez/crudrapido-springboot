@@ -5,6 +5,7 @@ import com.example.crudrapido.dto.TeacherDTO;
 import com.example.crudrapido.dto.TeacherResDTO;
 import com.example.crudrapido.entity.Student;
 import com.example.crudrapido.entity.Teacher;
+import com.example.crudrapido.exceptionAdvice.DuplicateEmailException;
 import com.example.crudrapido.exceptionAdvice.IdNotFoundException;
 import com.example.crudrapido.mappers.TeacherMapper;
 import com.example.crudrapido.repository.TeacherRepository;
@@ -70,6 +71,10 @@ public class TeacherService {
     }
 
     public TeacherDTO createTeacher(TeacherDTO teacher){
+        String email = teacher.getEmail();
+        if(this.teacherRepository.existsByEmail(email)){
+            throw new DuplicateEmailException("email already exists");
+        }
         Teacher teacherEntity = this.teacherRepository.save(this.teacherMapper.toEntity(teacher));
         return this.teacherMapper.toDTO(teacherEntity);
     }
