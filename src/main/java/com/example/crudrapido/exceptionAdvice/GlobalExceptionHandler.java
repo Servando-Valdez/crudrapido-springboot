@@ -69,7 +69,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errores), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(IdNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleIdNotFound(IdNotFoundException ex) {
@@ -79,7 +78,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
-
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
